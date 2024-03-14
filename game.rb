@@ -13,12 +13,41 @@ def readMap(number)
   end
 end
 
+def findHero(map)
+  hero = "H"
+  map.each_with_index do |line, i|
+    heroPos = line.index hero
+      if heroPos != nil
+        #puts "The hero is in line #{i} and col #{heroPos}"
+        return [i, heroPos]
+      end
+
+  end
+end
+
 def play(name)
   map = readMap 1
   while true
     writeMap map
-    move
+    direction = move
+    hero = findHero map
+    map[hero[0]][hero[1]] = " "
+    case direction
+        when "w"
+          hero[0]-= 1
+        when "s"
+          hero[0]+= 1
+        when "a"
+          hero[1]-= 1
+        when "d"
+          hero[1]+= 1
+    end
+    map[hero[0]][hero[1]] = "H"
   end
+
+end
+
+def renderHero
 
 end
 
