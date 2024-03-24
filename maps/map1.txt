@@ -1,9 +1,6 @@
 XXXXXXXXXXXXX
-X      H    X
+          H  
 X X XXXXXXXXX
-X           X
-X           X
-X           X
 X           X
 X           X
 X   F       X
