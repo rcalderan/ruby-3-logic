@@ -24,19 +24,27 @@ def findHero(map)
   end
 end
 
-def calculatePos(pos, direction, map)
-  newPos = [pos[0],pos[1]]
-  case direction
-    when "w"      
-      newPos[0]-= 1  
-    when "s"
-      newPos[0]+= 1
-    when "a"
-      newPos[1]-= 1
-    when "d"
-      newPos[1]+= 1
-  end
-  return newPos
+def calculatePos(pos, direction)
+  # Create a copy of the position to avoid modifying the original
+  new_pos = pos.dup
+
+  # Validate direction using a set for fast membership check
+  valid_directions = %w[w s a d]
+  return new_pos unless valid_directions.include?(direction)
+
+  # Retrieve movement vector efficiently using a hash lookup
+  movement = {
+    "w" => [-1, 0],
+    "s" => [1, 0],
+    "a" => [0, -1],
+    "d" => [0, 1]
+  }[direction]
+
+  # Apply movement vector to update new position
+  new_pos[0] += movement[0]
+  new_pos[1] += movement[1]
+
+  return new_pos
 end
 
 def play(name)
@@ -45,7 +53,7 @@ def play(name)
     writeMap map
     direction = move
     hero = findHero map
-    newHeroPos = calculatePos(hero, direction, map)
+    newHeroPos = calculatePos(hero, direction)
     if !isValidPos(newHeroPos, map)
       next
     end
